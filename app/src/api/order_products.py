@@ -11,9 +11,10 @@ def index():
     return jsonify(result)
 
 
-@bp.route('/<int:id>', methods=['GET'])
-def show(id: int):
-    order_product = OrderProduct.query.get_or_404(id, "OrderProduct not found")
+@bp.route('/<int:order_id>/<int:product_id>', methods=['GET'])
+def show(order_id: int, product_id: int):
+    
+    order_product = OrderProduct.query.get_or_404((order_id, product_id), "OrderProduct not found")
     return jsonify(order_product.serialize())
 
 
@@ -34,9 +35,9 @@ def create():
     return jsonify(order_product.serialize())
 
 
-@bp.route('/<int:id>', methods=['DELETE'])
-def delete(id: int):
-    order_product = OrderProduct.query.get_or_404(id, "OrderProduct not found")
+@bp.route('/<int:order_id>/<int:product_id>', methods=['DELETE'])
+def delete(order_id: int, product_id: int):
+    order_product = OrderProduct.query.get_or_404((order_id, product_id), "OrderProduct not found")
     try:
         db.session.delete(order_product)
         db.session.commit()

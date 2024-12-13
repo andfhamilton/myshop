@@ -136,7 +136,7 @@ ALTER SEQUENCE public.deliveries_id_seq OWNED BY public.deliveries.id;
 CREATE TABLE public.orders (
     id integer NOT NULL,
     customer_id integer NOT NULL,
-    total money,
+    total numeric,
     order_date timestamp without time zone
 );
 
@@ -173,7 +173,7 @@ CREATE TABLE public.orders_products (
     order_id integer,
     product_id integer,
     quantity integer,
-    price money
+    price numeric
 );
 
 
@@ -187,7 +187,7 @@ CREATE TABLE public.payments (
     id integer NOT NULL,
     payment_method text NOT NULL,
     payment_date timestamp without time zone,
-    amount money,
+    amount numeric,
     customer_id integer NOT NULL
 );
 
@@ -223,7 +223,7 @@ ALTER SEQUENCE public.payments_id_seq OWNED BY public.payments.id;
 CREATE TABLE public.products (
     id integer NOT NULL,
     product_name text NOT NULL,
-    price money NOT NULL
+    price numeric NOT NULL
 );
 
 
@@ -331,9 +331,9 @@ COPY public.deliveries (id, customer_id, status, delivery_date) FROM stdin;
 --
 
 COPY public.orders (id, customer_id, total, order_date) FROM stdin;
-1	1	$49.98	2023-10-29 12:00:00
-2	2	$59.98	2023-10-29 12:30:00
-3	3	$19.99	2023-10-29 13:00:00
+1	1	49.98	2023-10-29 12:00:00
+2	2	59.98	2023-10-29 12:30:00
+3	3	19.99	2023-10-29 13:00:00
 \.
 
 
@@ -342,9 +342,9 @@ COPY public.orders (id, customer_id, total, order_date) FROM stdin;
 --
 
 COPY public.orders_products (order_id, product_id, quantity, price) FROM stdin;
-1	1	2	$39.98
-1	2	1	$29.99
-3	3	1	$9.99
+1	1	2	39.98
+1	2	1	29.99
+3	3	1	9.99
 \.
 
 
@@ -353,9 +353,9 @@ COPY public.orders_products (order_id, product_id, quantity, price) FROM stdin;
 --
 
 COPY public.payments (id, payment_method, payment_date, amount, customer_id) FROM stdin;
-1	Credit Card	2023-10-29 14:30:00	$49.98	1
-2	PayPal	2023-10-29 15:30:00	$59.98	2
-3	Cash	2023-10-29 16:30:00	$19.99	3
+1	Credit Card	2023-10-29 14:30:00	49.98	1
+2	PayPal	2023-10-29 15:30:00	59.98	2
+3	Cash	2023-10-29 16:30:00	19.99	3
 \.
 
 
@@ -364,10 +364,10 @@ COPY public.payments (id, payment_method, payment_date, amount, customer_id) FRO
 --
 
 COPY public.products (id, product_name, price) FROM stdin;
-1	Product A	$19.99
-2	Product B	$29.99
-3	Product C	$9.99
-4	Product D	$49.99
+1	Product A	19.99
+2	Product B	29.99
+3	Product C	9.99
+4	Product D	49.99
 \.
 
 
